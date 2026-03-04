@@ -35,7 +35,7 @@
 
             try {
                 // Aquí llamaremos a tu servidor (Paso 4)
-                const response = await fetch('https://TU-SERVIDOR.onrender.com/evacuacion', {
+                const response = await fetch('https://evacuation-assistant-rh3a.onrender.com/evacuacion', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ aeropuerto: aero })
@@ -48,4 +48,5 @@
         }
     </script>
 </body>
+
 </html>
