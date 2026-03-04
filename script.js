@@ -12,7 +12,7 @@ async function solicitarAyuda() {
 
     try {
         // ESTA ES TU URL REAL CORREGIDA
-        const urlServidor = 'https://evacuation-assistant-rh3a.onrender.com'; 
+        const urlServidor = 'https://evacuation-assistant-rh3a.onrender.com/evacuacion'; 
 
         const response = await fetch(urlServidor, {
             method: 'POST',
@@ -35,3 +35,4 @@ async function solicitarAyuda() {
     }
 
 }
+
