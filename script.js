@@ -12,7 +12,7 @@ async function solicitarAyuda() {
 
     try {
         // ESTA ES TU URL REAL CORREGIDA
-        const urlServidor = 'https://evacuation-assistant-rh3a.onrender.com/evacuacion'; 
+        const urlServidor = 'https://evacuation-assistant-rh3a.onrender.com'; 
 
         const response = await fetch(urlServidor, {
             method: 'POST',
@@ -33,4 +33,5 @@ async function solicitarAyuda() {
         console.error("Error detallado:", error);
         cuadroRespuesta.innerHTML = "❌ Error: " + error.message;
     }
+
 }
