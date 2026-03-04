@@ -16,7 +16,7 @@ app.post('/evacuacion', async (req, res) => {
 
     try {
         const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+        const model = genAI.getGenerativeModel({ model: "gemini-3-flash-preview" });
         
         // Llamada a la API de vuelos
         const vuelosRes = await axios.get(`http://api.aviationstack.com/v1/flights?access_key=${process.env.FLIGHT_API_KEY}&departure_iata=${aeropuerto}`);
@@ -40,6 +40,7 @@ app.get('/', (req, res) => {
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => console.log(`Servidor en puerto ${PORT}`));
+
 
 
 
