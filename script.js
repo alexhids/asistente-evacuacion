@@ -1,30 +1,36 @@
 async function solicitarAyuda() {
-    const iata = document.getElementById('iataInput').value;
+    const iata = document.getElementById('iataInput').value.trim().toUpperCase();
     const cuadroRespuesta = document.getElementById('respuesta');
 
     if (iata.length !== 3) {
-        alert("Por favor, introduce un código válido de 3 letras.");
+        alert("Por favor, pon un código de 3 letras (Ej: BEY o MAD)");
         return;
     }
 
     cuadroRespuesta.style.display = 'block';
-    cuadroRespuesta.innerHTML = "<em>⌛ Conectando con bases de datos de aviación y analizando riesgos con IA...</em>";
+    cuadroRespuesta.innerHTML = "<em>⌛ Conectando con el servidor... Si es la primera vez en 15 min, puede tardar 40 segundos en despertar.</em>";
 
     try {
-        const direccionServidor = 'https://evacuation-assistant-rh3a.onrender.com/evacuacion'; 
+        // CAMBIA ESTA URL POR LA TUYA DE RENDER
+        const urlServidor = 'https://evacuation-assistant-rh3a.onrender.com/evacuacion'; 
 
-        const response = await fetch(direccionServidor, {
+        const response = await fetch(urlServidor, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+                'Content-Type': 'application/json'
+            },
             body: JSON.stringify({ aeropuerto: iata })
         });
 
-        const data = await response.json();
+        if (!response.ok) {
+            throw new Error("El servidor respondió con error. Revisa tus llaves API en Render.");
+        }
 
-        cuadroRespuesta.innerHTML = "<strong>Plan de Evacuación Sugerido:</strong><br><br>" + data.plan;
+        const data = await response.json();
+        cuadroRespuesta.innerHTML = "<strong>Resultados del análisis:</strong><br><br>" + data.plan;
 
     } catch (error) {
-        cuadroRespuesta.innerHTML = "❌ Error: No se pudo conectar con el servidor de emergencia. Verifica tu conexión.";
-        console.error("Error:", error);
+        console.error("Error detallado:", error);
+        cuadroRespuesta.innerHTML = "❌ Error de conexión. El servidor de Render podría estar arrancando o la URL es incorrecta.";
     }
 }
