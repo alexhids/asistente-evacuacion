@@ -8,9 +8,10 @@ async function solicitarAyuda() {
     }
 
     cuadroRespuesta.style.display = 'block';
-    cuadroRespuesta.innerHTML = "<em>⌛ Conectando... Si el servidor estaba dormido, tardará unos 40 segundos.</em>";
+    cuadroRespuesta.innerHTML = "<em>⌛ Conectando con Render...</em>";
 
     try {
+        // ESTA ES TU URL REAL CORREGIDA
         const urlServidor = 'https://evacuation-assistant-rh3a.onrender.com/evacuacion'; 
 
         const response = await fetch(urlServidor, {
@@ -21,11 +22,15 @@ async function solicitarAyuda() {
             body: JSON.stringify({ aeropuerto: iata })
         });
 
+        if (!response.ok) {
+            throw new Error("El servidor no reconoce la ruta /evacuacion");
+        }
+
         const data = await response.json();
-        cuadroRespuesta.innerHTML = "<strong>INSTRUCCIONES DE SALIDA:</strong><br><br>" + data.plan;
+        cuadroRespuesta.innerHTML = "<strong>RESULTADO:</strong><br>" + data.plan;
 
     } catch (error) {
-        console.error("Error:", error);
-        cuadroRespuesta.innerHTML = "❌ Error de conexión. El servidor de Render sigue arrancando o la URL es incorrecta.";
+        console.error("Error detallado:", error);
+        cuadroRespuesta.innerHTML = "❌ Error: " + error.message;
     }
 }
