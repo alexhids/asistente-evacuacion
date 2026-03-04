@@ -13,7 +13,7 @@ async function solicitarAyuda() {
 
     try {
         // IMPORTANTE: Aquí pondrás la dirección de tu servidor cuando lo subas a Render
-        const direccionServidor = 'http://localhost:3000/evacuacion'; 
+        const direccionServidor = 'https://evacuation-assistant-rh3a.onrender.com/evacuacion'; 
 
         const response = await fetch(direccionServidor, {
             method: 'POST',
