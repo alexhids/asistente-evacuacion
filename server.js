@@ -7,8 +7,8 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-const genAI = new GoogleGenerativeAI("TU_API_KEY_DE_GEMINI");
-const FLIGHT_API_KEY = "TU_API_KEY_DE_AVIATIONSTACK";
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+const FLIGHT_API_KEY = process.env.FLIGHT_API_KEY;
 
 app.post('/evacuacion', async (req, res) => {
     const { aeropuerto } = req.body;
