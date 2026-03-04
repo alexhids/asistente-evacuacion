@@ -14,11 +14,9 @@ app.post('/evacuacion', async (req, res) => {
     const { aeropuerto } = req.body;
 
     try {
-        // 1. Obtener vuelos reales del aeropuerto
         const vuelosRes = await axios.get(`http://api.aviationstack.com/v1/flights?access_key=${FLIGHT_API_KEY}&departure_icao=${aeropuerto}`);
-        const vuelos = vuelosRes.data.data.slice(0, 10); // Solo los primeros 10 para no saturar
+        const vuelos = vuelosRes.data.data.slice(0, 10);
 
-        // 2. Pedir a Gemini que analice
         const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
         const prompt = `Actúa como un experto en logística humanitaria. Analiza estos vuelos: ${JSON.stringify(vuelos)}. 
         El usuario está en el aeropuerto ${aeropuerto}. Indica cuáles NO están cancelados y sugiere la ruta más segura para salir hacia un país neutral. 

@@ -7,12 +7,10 @@ async function solicitarAyuda() {
         return;
     }
 
-    // Mostramos que estamos trabajando
     cuadroRespuesta.style.display = 'block';
     cuadroRespuesta.innerHTML = "<em>⌛ Conectando con bases de datos de aviación y analizando riesgos con IA...</em>";
 
     try {
-        // IMPORTANTE: Aquí pondrás la dirección de tu servidor cuando lo subas a Render
         const direccionServidor = 'https://evacuation-assistant-rh3a.onrender.com/evacuacion'; 
 
         const response = await fetch(direccionServidor, {
@@ -23,7 +21,6 @@ async function solicitarAyuda() {
 
         const data = await response.json();
 
-        // Mostramos el plan que generó Gemini
         cuadroRespuesta.innerHTML = "<strong>Plan de Evacuación Sugerido:</strong><br><br>" + data.plan;
 
     } catch (error) {
